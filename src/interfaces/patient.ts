@@ -6,6 +6,7 @@ export interface IPatient {
   age: number;
   password: string;
   confirmPassword: string;
-  verified: Boolean;
+  verified: boolean;
   image: string;
+  isBlocked: boolean;
 }

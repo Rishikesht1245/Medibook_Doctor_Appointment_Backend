@@ -28,7 +28,7 @@ const signup = async (req, res) => {
         req.body.password = await bcrypt_1.default.hash(req.body.password, 10);
         //saving new patient to DB
         const newPatient = await new patient_1.PatientModel(req.body).save();
-        // saving token to db
+        // saving OTP to db
         const token = await new token_1.TokenModel({
             userId: newPatient._id,
             //generate a random string of hexadecimal characters base 16

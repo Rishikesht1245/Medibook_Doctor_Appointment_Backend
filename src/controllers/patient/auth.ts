@@ -30,7 +30,7 @@ export const signup: RequestHandler = async (req, res) => {
     //saving new patient to DB
     const newPatient = await new PatientModel(req.body).save();
 
-    // saving token to db
+    // saving OTP to db
     const token = await new TokenModel({
       userId: newPatient._id,
       //generate a random string of hexadecimal characters base 16
@@ -116,7 +116,9 @@ export const login: RequestHandler = async (req, res) => {
     });
 
     if (!patientCheck) {
-      return res.status(401).json({ message: "User not found" });
+      return res
+        .status(401)
+        .json({ message: "User not found or User is not authorized" });
     }
 
     if (await bcrypt.compare(req.body.password, patientCheck.password)) {

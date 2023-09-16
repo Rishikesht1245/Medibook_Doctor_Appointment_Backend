@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PatientModel = void 0;
+exports.HospitalModel = void 0;
 const mongoose_1 = require("mongoose");
-const patientSchema = new mongoose_1.Schema({
+const hospitalSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, "Patient Must Have a name"],
@@ -22,10 +22,29 @@ const patientSchema = new mongoose_1.Schema({
             message: "Invalid e-Mail",
         },
     },
-    gender: {
+    description: {
         type: String,
-        trim: true,
-        required: [true, "Patient must specify the gender"],
+        required: [true, "Description is Required"],
+    },
+    location: {
+        type: String,
+        required: [true, "Location is Required"],
+    },
+    city: {
+        type: String,
+        required: [true, "City is Required"],
+    },
+    state: {
+        type: String,
+        required: [true, "State is Required"],
+    },
+    country: {
+        type: String,
+        required: [true, "Country is Required"],
+    },
+    image: {
+        type: String,
+        required: [true, "Image is required"],
     },
     mobile: {
         type: Number,
@@ -35,9 +54,9 @@ const patientSchema = new mongoose_1.Schema({
             message: "Invalid phone number!",
         },
     },
-    age: {
-        type: Number,
-        required: [true, "Patient must specify the age"],
+    website: {
+        type: String,
+        required: [true, "Website is required"],
     },
     password: {
         type: String,
@@ -47,12 +66,9 @@ const patientSchema = new mongoose_1.Schema({
         type: Boolean,
         default: false,
     },
-    image: {
-        type: String,
-    },
     isBlocked: {
         type: Boolean,
         default: false,
     },
 });
-exports.PatientModel = (0, mongoose_1.model)("Patient", patientSchema);
+exports.HospitalModel = (0, mongoose_1.model)("Hospital", hospitalSchema);

@@ -34,21 +34,21 @@
 import { cloudinary } from "../config/cloudinary";
 import { Request, Response, NextFunction } from "express";
 
-/**
- * Middleware to upload an image to Cloudinary
- * @param {Request} req - The Express Request object
- * @param {Response} res - The Express Response object
- * @param {NextFunction} next - The next middleware function
- */
 const uploadImage = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (req.file) {
-      const result = await cloudinary.uploader.upload(req.file.path);
-      const image = result.url;
+    if (req.body.image) {
+      const timestamp = new Date().getTime();
 
-      // You can now use the 'image' URL as needed
+      const result = await cloudinary.uploader.upload(req.body.image, {
+        public_id: `image_${timestamp}`,
+        upload_preset: "medibook",
+      });
+
+      //result object contain url to the image
+      const image = result.url;
       req.body.image = image;
 
+      // calling the signup function after successful upload
       next();
     } else {
       console.log({ error: "No file uploaded" });

@@ -1,10 +1,21 @@
 import { Router } from "express";
-import { signup } from "../controllers/hospital/auth";
-import { multerUploads } from "../config/multer";
+import {
+  login,
+  resentOtp,
+  signup,
+  verifyOtp,
+} from "../controllers/hospital/auth";
 import { uploadImage } from "../utils/uploadImage";
 
 const hospital = Router();
 
-hospital.post("/signup", multerUploads.single("images"), uploadImage, signup);
+// ============= auth routes =============//
+hospital.post("/signup", uploadImage, signup);
+
+hospital.post("/verify-otp", verifyOtp);
+
+hospital.get("/resend-otp/:id", resentOtp);
+
+hospital.post("/auth", login);
 
 export default hospital;

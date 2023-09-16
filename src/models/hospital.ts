@@ -1,8 +1,8 @@
 import { Schema, Model, model } from "mongoose";
-import { IPatient } from "../interfaces/patient";
+import { IHospital } from "../interfaces/hospital";
 import validator from "validator";
 
-const patientSchema = new Schema<IPatient>({
+const hospitalSchema = new Schema<IHospital>({
   name: {
     type: String,
     required: [true, "Patient Must Have a name"],
@@ -10,6 +10,7 @@ const patientSchema = new Schema<IPatient>({
       validator: (value: string) => /^[A-Za-z\s]+$/.test(value),
       message: "Invalid name",
     },
+
     trim: true,
   },
   email: {
@@ -22,10 +23,29 @@ const patientSchema = new Schema<IPatient>({
       message: "Invalid e-Mail",
     },
   },
-  gender: {
+  description: {
     type: String,
-    trim: true,
-    required: [true, "Patient must specify the gender"],
+    required: [true, "Description is Required"],
+  },
+  location: {
+    type: String,
+    required: [true, "Location is Required"],
+  },
+  city: {
+    type: String,
+    required: [true, "City is Required"],
+  },
+  state: {
+    type: String,
+    required: [true, "State is Required"],
+  },
+  country: {
+    type: String,
+    required: [true, "Country is Required"],
+  },
+  image: {
+    type: String,
+    required: [true, "Image is required"],
   },
   mobile: {
     type: Number,
@@ -35,9 +55,9 @@ const patientSchema = new Schema<IPatient>({
       message: "Invalid phone number!",
     },
   },
-  age: {
-    type: Number,
-    required: [true, "Patient must specify the age"],
+  website: {
+    type: String,
+    required: [true, "Website is required"],
   },
   password: {
     type: String,
@@ -47,13 +67,13 @@ const patientSchema = new Schema<IPatient>({
     type: Boolean,
     default: false,
   },
-  image: {
-    type: String,
-  },
   isBlocked: {
     type: Boolean,
     default: false,
   },
 });
 
-export const PatientModel: Model<IPatient> = model("Patient", patientSchema);
+export const HospitalModel: Model<IHospital> = model(
+  "Hospital",
+  hospitalSchema
+);

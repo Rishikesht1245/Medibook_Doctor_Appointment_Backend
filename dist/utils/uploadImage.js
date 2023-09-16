@@ -31,19 +31,18 @@ exports.uploadImage = void 0;
 // };
 // export { uploadImage };
 const cloudinary_1 = require("../config/cloudinary");
-/**
- * Middleware to upload an image to Cloudinary
- * @param {Request} req - The Express Request object
- * @param {Response} res - The Express Response object
- * @param {NextFunction} next - The next middleware function
- */
 const uploadImage = async (req, res, next) => {
     try {
-        if (req.file) {
-            const result = await cloudinary_1.cloudinary.uploader.upload(req.file.path);
+        if (req.body.image) {
+            const timestamp = new Date().getTime();
+            const result = await cloudinary_1.cloudinary.uploader.upload(req.body.image, {
+                public_id: `image_${timestamp}`,
+                upload_preset: "medibook",
+            });
+            //result object contain url to the image
             const image = result.url;
-            // You can now use the 'image' URL as needed
             req.body.image = image;
+            // calling the signup function after successful upload
             next();
         }
         else {
